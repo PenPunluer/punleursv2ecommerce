@@ -12,23 +12,19 @@ import { UsdToKhrPipe } from '../usd-to-khr-pipe';
 })
 export class ProductCard {
     @Input() product : any = [];
-  
 
     imageLoaded = false;
-isFavorite = false;
-isAddingToCart = false;
+    isFavorite = false;
+    isAddingToCart = false;
+    
 
-toggleFavorite() {
-  this.isFavorite = !this.isFavorite;
-}
-
-addToCart() {
-  if (this.product.qty <= 0) return;
-  
-  this.isAddingToCart = true;
-  // Your cart logic here
-  setTimeout(() => this.isAddingToCart = false, 1000); // Simulate async operation
-}
+    addToCart() {
+      if (this.product.qty <= 0) return;
+      
+      this.isAddingToCart = true;
+      // Your cart logic here
+      setTimeout(() => this.isAddingToCart = false, 1000);
+    }
 }
 
 

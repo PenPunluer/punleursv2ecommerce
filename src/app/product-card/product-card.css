@@ -62,16 +62,16 @@
     }
     
     .product-card {
-  position: relative;
-  width: 100%;
-  max-width: 280px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: 'Inter', -apple-system, sans-serif;
-  margin: 0 auto;
+      position: relative;
+      width: 100%;
+      max-width: 280px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-family: 'Inter', -apple-system, sans-serif;
+      margin: 0 auto;
 }
 
 .product-card:hover {
@@ -145,12 +145,10 @@
   font-weight: 600;
   margin: 0 0 6px 0;
   color: #1D1D1F;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.4;
-  min-height: 42px;
+  white-space: nowrap;       /* Prevent text from wrapping */
+  overflow: hidden;          /* Hide overflow */
+  text-overflow: ellipsis;   /* Add ellipsis to truncated text */
+  width: 100%;               /* Ensure it takes full width */
 }
 
 .product-description {
@@ -158,11 +156,12 @@
   color: #86868B;
   margin: 0 0 12px 0;
   display: -webkit-box;
+  -webkit-line-clamp: 2;      /* Limit to 2 lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.5;
-  min-height: 40px;
+  line-height: 1.5;           /* Adjust line height for better spacing */
+  min-height: 3em;            /* Ensures consistent height (2 lines × line-height) */
 }
 
 .product-pricing {

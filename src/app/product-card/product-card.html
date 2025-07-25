@@ -1,61 +1,42 @@
 <div class="product-card">
   <!-- Discount Badge (50% off for all products) -->
   <div class="product-badge">-50%</div>
-  
-  <!-- Favorite Button with dynamic fill -->
-  <button class="favorite-button" (click)="toggleFavorite()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" 
-         [attr.fill]="isFavorite ? '#ff3d00' : 'none'" 
-         stroke="#ff3d00" stroke-width="2">
-      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-    </svg>
-  </button>
 
   <!-- Product Image with loading state -->
   <div class="product-image-container">
-    <img [src]="product.image" alt="{{product.name}}" class="product-image" 
-         (load)="imageLoaded = true" [class.loaded]="imageLoaded">
+    <img
+      [src]="product.image"
+      alt="{{ product.name }}"
+      class="product-image"
+      (load)="imageLoaded = true"
+      [class.loaded]="imageLoaded"
+    />
     <div class="image-placeholder" *ngIf="!imageLoaded"></div>
   </div>
 
   <!-- Product Info -->
   <div class="product-info">
-    <h3 class="product-title" [title]="product.name">{{product.name}}</h3>
-    
-    <p class="product-description" *ngIf="product.description" [title]="product.description">
-      {{product.description}}
+    <h3 class="product-title" [title]="product.name">{{ product.name }}</h3>
+
+    <p class="product-description" [title]="product.description">
+      {{ product.description || "No description available" }}
     </p>
-    
+
     <div class="product-pricing">
       <span class="current-price">
-        {{(product.price * 0.5) | currency:'USD':'symbol':'1.2-2'}}
-        <span class="khr-price">({{(product.price * 0.5) | usdToKhr}})</span>
-      </span>
-      <span class="original-price">
-        {{product.price | currency:'USD':'symbol':'1.2-2'}}
-        <span class="khr-price">({{product.price | usdToKhr}})</span>
+        {{ product.price | currency : "USD" : "symbol" : "1.2-2" }}
+        <span class="khr-price">({{ product.price | usdToKhr }})</span>
       </span>
     </div>
 
-    <div class="stock-status">
-      <span class="in-stock" *ngIf="product.qty > 10">In Stock</span>
-      <span class="low-stock" *ngIf="product.qty > 0 && product.qty <= 10">Only {{product.qty}} left</span>
-      <span class="out-of-stock" *ngIf="product.qty <= 0">Out of Stock</span>
-    </div>
-
-    <button class="add-to-cart-button" 
-            [disabled]="product.qty <= 0"
-            (click)="addToCart()"
-            [class.disabled]="product.qty <= 0">
-      {{product.qty > 0 ? 'Add to Cart' : 'Sold Out'}}
+    <button
+      class="add-to-cart-button"
+      [disabled]="product.qty <= 0"
+      (click)="addToCart()"
+      [class.disabled]="product.qty <= 0"
+    >
+      {{ product.qty > 0 ? "Add to Cart" : "Sold Out" }}
       <span *ngIf="isAddingToCart" class="spinner"></span>
     </button>
-
-    <div class="delivery-info" *ngIf="product.qty > 0">
-      <svg class="delivery-icon" width="16" height="16" viewBox="0 0 24 24">
-        <path d="M19 7h-8v6h8v-6zm-2 4h-4v-2h4v2zm4-8h-14v14h2v-12h12v12h2v-14z"/>
-      </svg>
-      <span>Free delivery</span>
-    </div>
   </div>
 </div>
