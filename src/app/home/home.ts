@@ -16,16 +16,20 @@ export class Home {
 
   
 
-  onAddToCart(product: any) {
-    this.cartService.addItem(product);
+  
 
-    Swal.fire({
-    position: "top-end",
-    icon: "success",
-    title: "Your work has been saved",
+  onAddToCart(product: any) {
+  this.cartService.addItem(product);
+
+  Swal.fire({
+    position: 'top-end',
+    icon: 'success',
+    title: 'Your work has been saved',
+    text: `${product.name} added to your cart!`,
     showConfirmButton: false,
-    timer: 1500
-});
-  }
+    timer: 1500,
+    toast: true
+  });
+}
 
 }
