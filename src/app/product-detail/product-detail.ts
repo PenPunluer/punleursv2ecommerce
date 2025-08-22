@@ -6,6 +6,7 @@ import { CartService } from '../service/cart-service';
 
 declare const axios: any;
 declare const $: any;
+declare const Swal: any;
 
 @Component({
   selector: 'app-product-detail',
@@ -55,7 +56,23 @@ export class ProductDetailComponent implements OnInit {
   onAddToCart() {
     if (!this.product || this.quantity < 1) return;
 
+    // Clamp quantity to available stock
+    if (this.quantity > this.product.qty) this.quantity = this.product.qty;
+
     this.cartService.addItem(this.product, this.quantity);
-    alert(`🛒 Added ${this.quantity} of ${this.product.name} to cart`);
+
+    // SweetAlert2 toast success message
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: `🛒 Added ${this.quantity} x "${this.product.name}" to cart`,
+      showConfirmButton: false,
+      timer: 1500,
+      toast: true
+    });
+  }
+
+  onImageError(event: any) {
+    event.target.src = '/no_image.png';
   }
 }

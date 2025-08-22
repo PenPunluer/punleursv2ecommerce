@@ -6,16 +6,14 @@
         [src]="product?.imageUrl || '/no_image.png'"
         [alt]="product?.name || 'No Name'"
         class="product-image img-fluid"
-        onerror="this.src='/no_image.png'"
+        (error)="onImageError($event)"
       />
     </div>
 
     <!-- Product Details -->
     <div class="col-md-6">
       <h2>{{ product?.name }}</h2>
-      <p class="price">
-        {{ product?.price | currency:'USD':'symbol':'1.2-2' }}
-      </p>
+      <p class="price">{{ product?.price | currency:'USD':'symbol':'1.2-2' }}</p>
       <p>{{ product?.description }}</p>
 
       <!-- Quantity Selection -->
