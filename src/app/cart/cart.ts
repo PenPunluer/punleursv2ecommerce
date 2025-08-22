@@ -4,7 +4,6 @@ import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 declare var Swal: any; 
 
-
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -44,7 +43,32 @@ export class Cart {
   }
 
   decreaseQuantity(item: any) {
-    this.cartService.decreaseQuantity(item);
+    if (item.quantity > 1) {
+      this.cartService.decreaseQuantity(item);
+    } else {
+      // Show alert if quantity is 1
+      Swal.fire({
+        title: 'Remove Item?',
+        text: `Quantity is 1. Do you want to remove "${item.name}" from your cart?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6'
+      }).then((result: any) => {
+        if (result.isConfirmed) {
+          this.cartService.removeItem(item);
+          Swal.fire({
+            title: 'Removed!',
+            text: `"${item.name}" has been removed from your cart.`,
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: false
+          });
+        }
+      });
+    }
   }
 
   checkout() {

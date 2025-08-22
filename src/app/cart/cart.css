@@ -1,18 +1,132 @@
 body {
-      background: #f8f9fa;
-    }
-    .cart-item {
-      border-bottom: 1px solid #dee2e6;
-      padding: 15px 0;
-    }
-    .cart-item img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-    }
-    .cart-summary {
-      border: 1px solid #dee2e6;
-      padding: 20px;
-      border-radius: 8px;
-      background: #fff;
-    }
+  background: #f8f9fa;
+  font-family: 'Inter', sans-serif;
+}
+
+.cart-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cart-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.empty-cart {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #888;
+  padding: 40px 0;
+}
+
+.cart-item {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.item-pricing {
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: #1d1d1f;
+}
+
+.item-qty {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.item-qty button {
+  padding: 4px 8px;
+  border: none;
+  background: #0071E3;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.item-qty button:hover {
+  background: #0062C4;
+}
+
+.quantity {
+  padding: 0 10px;
+  font-weight: 500;
+}
+
+.remove-btn {
+  margin-top: 5px;
+  background: #FF3B30;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.remove-btn:hover {
+  background: #E03027;
+}
+
+.item-total {
+  font-weight: 700;
+  font-size: 1rem;
+  min-width: 80px;
+  text-align: right;
+}
+
+.cart-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-top: 20px;
+}
+
+.checkout-btn {
+  background: #34C759;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.checkout-btn:hover {
+  background: #28A745;
+}
