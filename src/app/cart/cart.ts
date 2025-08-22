@@ -25,7 +25,7 @@ export class Cart {
     if (item.quantity > 1) {
       this.cartService.decreaseQuantity(item);
     } else {
-      // Show confirmation if quantity is 1
+      // Confirm removal if quantity is 1
       Swal.fire({
         title: 'Remove Item?',
         text: `Quantity is 1. Do you want to remove "${item.name}" from your cart?`,
@@ -75,7 +75,7 @@ export class Cart {
     });
   }
 
-  // Checkout with USD + KHR invoice
+  // Checkout with USD + ៛ invoice
   checkout() {
     const totalUSD = this.cartService.getTotal();
 
@@ -91,16 +91,17 @@ export class Cart {
     const conversionRate = 4100; // 1 USD = 4100 KHR
     const totalKHR = totalUSD * conversionRate;
 
-    // Prepare invoice
-    let invoice = `Product Invoice:\n\n`;
+    // Build invoice
+    let invoice = `🧾 Product Invoice:\n\n`;
     this.cartService.getItem().forEach(item => {
       const itemTotalUSD = item.price * item.quantity;
       const itemTotalKHR = itemTotalUSD * conversionRate;
-      invoice += `${item.name} x ${item.quantity} = $${itemTotalUSD.toFixed(2)} | ${itemTotalKHR.toLocaleString()} KHR\n`;
+      invoice += `${item.name} x ${item.quantity} = $${itemTotalUSD.toFixed(2)} | ${itemTotalKHR.toLocaleString()} ៛\n`;
     });
 
-    invoice += `\nGrand Total: $${totalUSD.toFixed(2)} | ${totalKHR.toLocaleString()} KHR`;
+    invoice += `\nGrand Total: $${totalUSD.toFixed(2)} | ${totalKHR.toLocaleString()} ៛`;
 
+    // Show confirmation
     Swal.fire({
       title: 'Confirm Checkout',
       html: `<pre style="text-align:left">${invoice}</pre>`,

@@ -9,7 +9,7 @@
             <th scope="col">Price (USD)</th>
             <th scope="col">Quantity</th>
             <th scope="col">Total (USD)</th>
-            <th scope="col">Total (KHR)</th>
+            <th scope="col">Total (៛)</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -45,8 +45,8 @@
               <!-- Total USD -->
               <td>{{ (item.price * item.quantity) | currency:'USD':'symbol' }}</td>
 
-              <!-- Total KHR -->
-              <td>{{ (item.price * item.quantity * 4100) | number:'1.0-0' }} KHR</td>
+              <!-- Total KHR (៛) -->
+              <td>{{ (item.price * item.quantity * 4100) | number:'1.0-0' }} ៛</td>
 
               <!-- Remove item -->
               <td>
@@ -66,7 +66,7 @@
         Grand Total: 
         <strong>
           {{ cartService.getTotal() | currency:'USD':'symbol' }} |
-          {{ (cartService.getTotal() * 4100) | number:'1.0-0' }} KHR
+          {{ (cartService.getTotal() * 4100) | number:'1.0-0' }} ៛
         </strong>
       </h5>
       <button class="btn btn-success btn-lg" (click)="checkout()">Checkout</button>
