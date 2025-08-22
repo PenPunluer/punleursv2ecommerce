@@ -1,10 +1,9 @@
 <div class="container">
 
-
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" routerLink="/">PPL Store</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -17,22 +16,31 @@
           <a class="nav-link" routerLink="/product">Product</a>
         </li>
       </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/cart" type="button">Cart({{ cartService.getItem().length }})</button>
+
+      <!-- 🔹 Search + Cart -->
+      <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSearchSubmit()">
+        <input class="form-control mr-sm-2"
+               type="search"
+               placeholder="Search product"
+               aria-label="Search"
+               [(ngModel)]="searchTerm"
+               (ngModelChange)="onSearchChange($event)"
+               name="search">
+        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0"
+                routerLink="/cart"
+                type="button">
+          Cart({{ cartService.getItem()?.length || 0 }})
+        </button>
       </form>
     </div>
-    </nav>
+  </nav>
 
-    <div class="content">
-      <router-outlet />
-    </div>
-
+  <!-- Page Content -->
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
-
-
-
-
 
 <footer class="text-center bg-dark text-light py-3 mt-5">
   <div class="container">
@@ -40,5 +48,3 @@
     <p class="mb-0">📍 Phnom Penh, Cambodia</p>
   </div>
 </footer>
-
-

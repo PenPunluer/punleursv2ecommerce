@@ -1,9 +1,19 @@
-   <app-main-slider></app-main-slider>
+<app-main-slider></app-main-slider>
 
-    <div class="row">
-      @for(product of products.getProducts(); track product.id){
-        <app-product-card [product]  = "product" 
-        (addToCart)="onAddToCart($event)"
-        class="col-lg-3 col-md-3 col-sm-6 mt-4"></app-product-card>
-      }
+<div class="container">
+  <div class="row">
+    <ng-container *ngFor="let product of filteredProducts; trackBy: trackByProductId">
+      <div class="col-lg-3 col-md-4 col-sm-6 mt-4">
+        <app-product-card
+          [product]="product"
+          (addToCart)="onAddToCart($event)">
+        </app-product-card>
+      </div>
+    </ng-container>
+
+    <!-- No products found -->
+    <div *ngIf="filteredProducts.length === 0" class="text-center w-100 mt-5">
+      <p>No products found for "{{ cartService.searchTerm }}"</p>
     </div>
+  </div>
+</div>

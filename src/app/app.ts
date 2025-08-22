@@ -1,26 +1,34 @@
 import { Component } from '@angular/core';
-import { RouterOutlet ,RouterLink} from '@angular/router';
-import { MainSlider } from './main-slider/main-slider';
-import { ProductCard } from './product-card/product-card';
+import { RouterOutlet , RouterLink, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { CartService } from './service/cart-service';
-
-
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink],
+  standalone: true,
+  imports: [RouterOutlet, RouterLink, FormsModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
+  searchTerm: string = '';
 
-  constructor(public cartService: CartService) {}
+  constructor(public cartService: CartService, private router: Router) {}
 
-   title : string = 'ng_Test';
-  std_name: string = 'Punleur';
-  std_age : number = 25;
-  std_Url : string = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+  // called when user types in search
+  onSearchChange(value: string) {
+    this.searchTerm = value;
+    if (!value.trim()) {
+      // if input is cleared → go home
+      this.router.navigate(['/home']);
+    }
+  }
 
-
- 
+  onSearchSubmit() {
+    if (this.searchTerm.trim()) {
+      this.router.navigate(['/product'], { queryParams: { q: this.searchTerm } });
+    } else {
+      this.router.navigate(['/home']);
+    }
+  }
 }

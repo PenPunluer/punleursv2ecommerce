@@ -1,9 +1,19 @@
 <div class="row">
-  @for (product of productsList; track product.id) {
+  <!-- Loop through filtered products -->
+  @for (product of filteredProducts; track product.id) {
     <app-product-card
       [product]="product"
-      (addToCart)="onAddToCart($event)"
+      (addToCart)="onAddToCart(product)"
       class="col-lg-3 col-md-3 col-sm-6 mt-4">
     </app-product-card>
+  }
+
+  <!-- Show message if no products match -->
+  @if (filteredProducts.length === 0) {
+    <div class="col-12 mt-4">
+      <div class="alert alert-warning text-center">
+        No products found for your search.
+      </div>
+    </div>
   }
 </div>

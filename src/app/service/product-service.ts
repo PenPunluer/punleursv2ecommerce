@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 declare const axios: any;
 declare const $: any;
 
@@ -7,31 +8,23 @@ declare const $: any;
 })
 export class ProductService {
 
-  constructor() { 
-
-      let vm = this;
-      $.LoadingOverlay("show");
-      axios.get(this.apiUrl)
-      .then(function (response: any) {
-        // handle success
-        vm.products = response.data;
-      })
-      .catch(function (error: any) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        $.LoadingOverlay("hide");
-      });
-    
-  }
-
-  private products: any = [];
+  private productsSubject = new BehaviorSubject<any[]>([]);
+  products$ = this.productsSubject.asObservable();
   private apiUrl: string = 'https://sv-gen-api.bczin2zin2takeo.us/api/product'; 
 
-  getProducts(): any[] {
+  constructor() { 
+    this.fetchProducts();
+  }
 
-  
-    return this.products;
+  private fetchProducts() {
+    $.LoadingOverlay("show");
+    axios.get(this.apiUrl)
+      .then((response: any) => this.productsSubject.next(response.data))
+      .catch((error: any) => { console.error(error); this.productsSubject.next([]); })
+      .finally(() => $.LoadingOverlay("hide"));
+  }
+
+  getProducts(): any[] {
+    return this.productsSubject.value;
   }
 }
