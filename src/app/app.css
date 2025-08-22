@@ -69,3 +69,11 @@
     .product-name {
       font-size: 0.95rem;
     }
+
+    footer a {
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #ffc107;
+}

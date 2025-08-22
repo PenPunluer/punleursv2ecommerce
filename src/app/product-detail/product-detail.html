@@ -1,0 +1,51 @@
+<div class="container mt-4" *ngIf="product; else loading">
+  <div class="row">
+    <!-- Product Image -->
+    <div class="col-md-6 text-center">
+      <img
+        [src]="product?.imageUrl || '/no_image.png'"
+        [alt]="product?.name || 'No Name'"
+        class="product-image img-fluid"
+        onerror="this.src='/no_image.png'"
+      />
+    </div>
+
+    <!-- Product Details -->
+    <div class="col-md-6">
+      <h2>{{ product?.name }}</h2>
+      <p class="price">
+        {{ product?.price | currency:'USD':'symbol':'1.2-2' }}
+      </p>
+      <p>{{ product?.description }}</p>
+
+      <!-- Quantity Selection -->
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input
+          type="number"
+          id="quantity"
+          class="form-control"
+          [(ngModel)]="quantity"
+          min="1"
+          [max]="product?.qty || 1"
+        />
+      </div>
+
+      <!-- Add to Cart -->
+      <button
+        class="btn btn-primary btn-block mt-3"
+        (click)="onAddToCart()"
+        [disabled]="!product?.qty || product?.qty === 0"
+      >
+        {{ product?.qty > 0 ? 'Add to Cart' : 'Out of Stock' }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Loading state -->
+<ng-template #loading>
+  <div class="text-center mt-5">
+    <p>Loading product details...</p>
+  </div>
+</ng-template>

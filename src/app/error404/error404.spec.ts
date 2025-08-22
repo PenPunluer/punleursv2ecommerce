@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopMenu } from './top-menu';
+import { Error404 } from './error404';
 
-describe('TopMenu', () => {
-  let component: TopMenu;
-  let fixture: ComponentFixture<TopMenu>;
+describe('Error404', () => {
+  let component: Error404;
+  let fixture: ComponentFixture<Error404>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TopMenu]
+      imports: [Error404]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TopMenu);
+    fixture = TestBed.createComponent(Error404);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,18 @@
+body {
+      background: #f8f9fa;
+    }
+    .cart-item {
+      border-bottom: 1px solid #dee2e6;
+      padding: 15px 0;
+    }
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
+    .cart-summary {
+      border: 1px solid #dee2e6;
+      padding: 20px;
+      border-radius: 8px;
+      background: #fff;
+    }

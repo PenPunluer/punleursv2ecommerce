@@ -1,26 +1,36 @@
 <div class="product-card">
-  <!-- Discount Badge (50% off for all products) -->
-  <div class="product-badge">-50%</div>
+  <!-- Stock Badge -->
+  <div class="product-badge" [ngClass]="{'out-of-stock': product.qty === 0}">
+    {{ product.qty > 0 ? product.qty + ' in stock' : 'Out of stock' }}
+  </div>
 
-  <!-- Product Image with loading state -->
-  <div class="product-image-container">
+  <!-- Product Image with loading state + RouterLink -->
+  <a
+    class="product-image-container"
+    [routerLink]="['/product-detail']"
+    [queryParams]="{ product_id: product.id }"
+  >
     <img
-      [src]="product.image"
+      [src]="product.imageUrl"
       alt="{{ product.name }}"
       class="product-image"
+      onerror="this.src='/no_image.png'"
       (load)="imageLoaded = true"
       [class.loaded]="imageLoaded"
     />
     <div class="image-placeholder" *ngIf="!imageLoaded"></div>
-  </div>
+  </a>
 
   <!-- Product Info -->
   <div class="product-info">
-    <h3 class="product-title" [title]="product.name">{{ product.name }}</h3>
-
-    <p class="product-description" [title]="product.description">
-      {{ product.description || "No description available" }}
-    </p>
+    <h3 class="product-title" [title]="product.name">
+      <a
+        [routerLink]="['/product-detail']"
+        [queryParams]="{ product_id: product.id }"
+      >
+        {{ product.name }}
+      </a>
+    </h3>
 
     <div class="product-pricing">
       <span class="current-price">
@@ -29,14 +39,13 @@
       </span>
     </div>
 
-    <button
-      class="add-to-cart-button"
-      [disabled]="product.qty <= 0"
-      (click)="addToCart()"
-      [class.disabled]="product.qty <= 0"
-    >
-      {{ product.qty > 0 ? "Add to Cart" : "Sold Out" }}
-      <span *ngIf="isAddingToCart" class="spinner"></span>
-    </button>
+    <!-- Add to Cart -->
+    <input
+      type="button"
+      class="btn btn-outline-success btn-block mt-3"
+      value="Add to Cart"
+      (click)="onAddToCart(product)"
+      [disabled]="product.stock === 0"
+    />
   </div>
 </div>
