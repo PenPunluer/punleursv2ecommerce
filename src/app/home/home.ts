@@ -14,9 +14,6 @@ import { ProductService } from '../service/product-service';
 export class Home {
   constructor(public cartService: CartService, public products: ProductService) {}
 
-  
-
-  
 
   onAddToCart(product: any) {
   this.cartService.addItem(product);
