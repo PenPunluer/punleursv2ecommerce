@@ -6,51 +6,55 @@
           <tr>
             <th scope="col">Product</th>
             <th scope="col">Name</th>
-            <th scope="col">Price</th>
+            <th scope="col">Price (USD)</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Total</th>
+            <th scope="col">Total (USD)</th>
+            <th scope="col">Total (KHR)</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           @for(item of cartService.getItem(); track item.id) {
-          <tr>
-            <!-- Product image -->
-            <td>
-              <img [src]="item.imageUrl" [alt]="item.name"
-                   class="img-fluid"
-                   style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;">
-            </td>
+            <tr>
+              <!-- Product image -->
+              <td>
+                <img [src]="item.imageUrl" [alt]="item.name"
+                     class="img-fluid"
+                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;">
+              </td>
 
-            <!-- Product name -->
-            <td>{{ item.name }}</td>
+              <!-- Product name -->
+              <td>{{ item.name }}</td>
 
-            <!-- Product price -->
-            <td>{{ item.price | currency }}</td>
+              <!-- Price in USD -->
+              <td>{{ item.price | currency:'USD':'symbol' }}</td>
 
-            <!-- Quantity controls -->
-            <td class="d-flex align-items-center">
-              <button class="btn btn-sm btn-outline-secondary me-1"
-                      (click)="decreaseQuantity(item)">-</button>
+              <!-- Quantity controls -->
+              <td class="d-flex align-items-center">
+                <button class="btn btn-sm btn-outline-secondary me-1"
+                        (click)="decreaseQuantity(item)">-</button>
 
-              <span class="badge bg-light text-dark px-3 py-2 border">
-                {{ item.quantity }}
-              </span>
+                <span class="badge bg-light text-dark px-3 py-2 border">
+                  {{ item.quantity }}
+                </span>
 
-              <button class="btn btn-sm btn-outline-secondary ms-1"
-                      (click)="increaseQuantity(item)">+</button>
-            </td>
+                <button class="btn btn-sm btn-outline-secondary ms-1"
+                        (click)="increaseQuantity(item)">+</button>
+              </td>
 
-            <!-- Total price for this item -->
-            <td>{{ item.quantity * item.price | currency }}</td>
+              <!-- Total USD -->
+              <td>{{ (item.price * item.quantity) | currency:'USD':'symbol' }}</td>
 
-            <!-- Remove item -->
-            <td>
-              <button (click)="removeItem(item)" class="btn btn-danger btn-sm">
-                Remove
-              </button>
-            </td>
-          </tr>
+              <!-- Total KHR -->
+              <td>{{ (item.price * item.quantity * 4100) | number:'1.0-0' }} KHR</td>
+
+              <!-- Remove item -->
+              <td>
+                <button (click)="removeItem(item)" class="btn btn-danger btn-sm">
+                  Remove
+                </button>
+              </td>
+            </tr>
           }
         </tbody>
       </table>
@@ -59,7 +63,11 @@
     <!-- Grand Total -->
     <div class="card-footer d-flex justify-content-between align-items-center">
       <h5 class="mb-0">
-        Grand Total: <strong>{{ cartService.getTotal() | currency }}</strong>
+        Grand Total: 
+        <strong>
+          {{ cartService.getTotal() | currency:'USD':'symbol' }} |
+          {{ (cartService.getTotal() * 4100) | number:'1.0-0' }} KHR
+        </strong>
       </h5>
       <button class="btn btn-success btn-lg" (click)="checkout()">Checkout</button>
     </div>
